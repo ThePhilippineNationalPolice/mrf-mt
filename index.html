@@ -92,7 +92,7 @@ main{padding:32px 38px;min-width:0}.pgh h1{margin:0;font:700 42px/1 'Space Grote
 #cert{width:794px;height:1123px;position:relative;background:#fff3cf;border:18px solid #4a6741;border-bottom-width:30px;border-top-width:22px;font-family:'Space Mono',monospace;color:#111;overflow:hidden;zoom:.7}
 #cert .wm{position:absolute;inset:0;background-size:contain;background-position:center bottom;background-repeat:no-repeat;opacity:.38}
 #cert .in{position:relative;padding:0 46px}
-#cert .logo{position:absolute;right:-10px;top:-8px;width:150px;height:150px;object-fit:contain}
+#cert .logo{position:absolute;right:12px;top:4px;width:136px;height:136px;object-fit:contain}
 #cert .org{font:400 18px 'Playfair Display',serif;text-align:center;margin-top:30px;letter-spacing:1px}
 #cert h1{font:800 54px/1.15 'Playfair Display',serif;text-align:center;letter-spacing:5px;margin:6px 0 40px}
 #cert .t{font-size:17px;line-height:1.5;text-align:justify;letter-spacing:1.2px;margin:0 0 20px}
@@ -106,6 +106,7 @@ main{padding:32px 38px;min-width:0}.pgh h1{margin:0;font:700 42px/1 'Space Grote
 @media print{body *{visibility:hidden}#cert,#cert *{visibility:visible}#cert{position:fixed;left:0;top:0;zoom:1!important}}
 
 #cert.d2{background:#fbf8ee;border:0;font-family:'Open Sans',sans-serif;color:#14210f}
+.d2 .xsw{position:absolute;left:47px;top:300px;width:700px;height:986px;background-size:100% 100%;background-repeat:no-repeat;opacity:.12}
 .d2 .xwm{position:absolute;left:197px;top:360px;width:400px;height:400px;background-size:contain;background-repeat:no-repeat;background-position:center;opacity:.09}
 .d2 .xfr{position:absolute;inset:14px;border:3px solid #1f3a1a}.d2 .xfr2{position:absolute;inset:22px;border:1px solid #b08a2e}
 .d2 .xc{position:absolute;width:44px;height:44px;border:5px solid #b08a2e}.d2 .xc.tl{left:8px;top:8px;border-right:0;border-bottom:0}.d2 .xc.tr{right:8px;top:8px;border-left:0;border-bottom:0}.d2 .xc.bl{left:8px;bottom:8px;border-right:0;border-top:0}.d2 .xc.br{right:8px;bottom:8px;border-left:0;border-top:0}
@@ -328,7 +329,7 @@ function draw2(){if(!F.serial)F.serial=newSerial();F.code=mkCode();
  const sd=h53(F.serial)%1000000007,s=S.sigs,L=S.logo||DEFAULT_LOGO,mt=(t,n)=>Array(n).fill(t).join(' · '),
  sg=(x,st)=>`<div class="sg" style="${st}"><div class="im">${x.img?`<img src="${x.img}">`:''}</div><div class="ln"></div><b>${esc(x.name)}</b><span>${esc(x.title)}</span></div>`;
  let qr='';try{if(typeof qrcode==='function'){const q=qrcode(0,'M');q.addData('MRF:'+F.serial+':'+F.code);q.make();qr=q.createDataURL(4,0)}}catch{}
- $('#cert').innerHTML=`<div class="xwm" style="background-image:url(${L})"></div>
+ $('#cert').innerHTML=`<div class="xsw" style="background-image:url(${HERO_IMG})"></div><div class="xwm" style="background-image:url(${L})"></div>
  <svg width="794" height="1123" viewBox="0 0 794 1123" style="position:absolute;left:0;top:0"><g fill="none" stroke="#1f3a1a" stroke-opacity=".17" stroke-width=".7">${rosette(sd,397,560,330)}</g><g transform="translate(78,0)" fill="none" stroke="#b08a2e" stroke-width=".8">${waves(sd,638,262,5)}</g></svg>
  <div class="xfr"></div><div class="xfr2"></div><i class="xc tl"></i><i class="xc tr"></i><i class="xc bl"></i><i class="xc br"></i>
  <div class="xmt" style="top:30px">${mt('MEDICAL RESERVE FORCE · PHILIPPINE NATIONAL POLICE',6)}</div><div class="xmt" style="top:1086px">${mt('SERIAL '+F.serial+' CODE '+F.code,12)}</div>
@@ -355,8 +356,8 @@ function draw(){
  try{localStorage.mrfDesign=F.design}catch{}
  $('#cert').className=F.design==='2'?'d2':'';if(F.design==='2')return draw2();
  const s=S.sigs,sg=(x,st)=>`<div class="sg" style="${st}"><div class="im">${x.img?`<img src="${x.img}">`:''}</div><div class="ln"></div><b>${esc(x.name)}</b><span>${esc(x.title)}</span></div>`;
- $('#cert').innerHTML=`<div class="wm" style="background-image:url(${S.wm||HERO_IMG});background-size:${S.wm?'contain':'auto 80%'}"></div><div class="side" style="left:-14px">TPNP MEDICAL RESERVE FORCE</div><div class="side" style="right:-14px">TPNP MEDICAL RESERVE FORCE</div>
- <div class="in"><img class="logo" src="${S.logo||DEFAULT_LOGO}"><div class="org">MEDICAL RESERVE FORCE</div><h1>MEDICAL<br>CERTIFICATE</h1>
+ $('#cert').innerHTML=`<div class="wm" style="${S.wm?`background-image:url(${S.wm});background-size:contain`:`background-image:url(${HERO_IMG});background-size:100% 100%;inset:auto;left:27px;top:262px;width:740px;height:1042px`}"></div><div class="side" style="left:-14px">TPNP MEDICAL RESERVE FORCE</div><div class="side" style="right:-14px">TPNP MEDICAL RESERVE FORCE</div>
+ <svg style="position:absolute;right:0;top:0" width="230" height="230" viewBox="0 0 230 230"><polygon points="0,0 230,0 230,230" fill="#3d5a35"/></svg><div class="in"><img class="logo" src="${S.logo||DEFAULT_LOGO}"><div class="org">MEDICAL RESERVE FORCE</div><h1>MEDICAL<br>CERTIFICATE</h1>
  <p class="t"><b>To whom it may concern:</b></p>
  <p class="t">This is to certify that <b>${esc(F.rank)}, ${esc(F.name)} of the ${esc(F.unit)}</b>, was examined <b>on ${esc(F.date)}</b> by the Medical Examiner of the Medical Reserve Force. After a medical examination, no medical conditions or health issues have been identified that would interfere with their daily activities. The patient exhibits no signs of illness, and ${esc(F.pron)} overall health is <b>${esc(F.cond)}, This certificate will expire after ${esc(F.valid)}.</b></p>
  <p class="t">${esc(F.p2)}</p><p class="t">This medical certificate is issued for:</p><div class="for">${esc(F.issuedFor)}</div></div>
